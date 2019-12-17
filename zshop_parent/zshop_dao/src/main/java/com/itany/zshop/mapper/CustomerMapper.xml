@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Maooer 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itany.zshop.dao.CustomerDao">
+
+    <resultMap id="customerMap" type="Customer">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="loginName" column="login_name"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="address" column="address"/>
+        <result property="isValid" column="is_valid"/>
+        <result property="registDate" column="regist_date"/>
+    </resultMap>
+
+    <sql id="customerColumn">
+        id,
+        name,
+        login_name,
+        password,
+        phone,
+        address,
+        is_valid,
+        regist_date
+    </sql>
+
+    <select id="selectAll" resultMap="customerMap">
+         select <include refid="customerColumn"/>
+         from t_customer
+     </select>
+    <select id="selectById" resultMap="customerMap">
+        select <include refid="customerColumn"/>
+        from t_customer
+        where id=#{id}
+    </select>
+    <select id="selectByParams" parameterType="com.itany.zshop.params.CustomerParam" resultMap="customerMap">
+        select <include refid="customerColumn"/>
+        from t_customer
+        <where>
+            <if test="name!=null and name!=''">
+                and name like concat(concat('%',#{name}),'%')
+            </if>
+            <if test="loginName!=null and loginName!=''">
+                and login_name like concat(concat('%',#{loginName}),'%')
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like concat(concat('%',#{phone}),'%')
+            </if>
+            <if test="address!=null and role!=''">
+                and address like concat(concat('%',#{address}),'%')
+            </if>
+            <if test="isValid!=null  and isValid!=-1">
+                and is_valid=#{isValid}
+            </if>
+        </where>
+    </select>
+    <select id="selectByloginName" resultMap="customerMap">
+        select <include refid="customerColumn"/>
+        from t_customer
+        where login_name=#{loginName}
+    </select>
+    <select id="selectByPassword" resultMap="customerMap">
+         select <include refid="customerColumn"/>
+         from t_customer
+         where login_name=#{loginName} and password=#{password} and is_valid=#{isValid}
+    </select>
+
+    <insert id="insert" parameterType="Customer">
+        insert into t_customer
+        (name, login_name, password, phone, address,is_valid,regist_date)
+        values (#{name},#{loginName},#{password},#{phone},#{address},#{isValid},#{registDate})
+    </insert>
+
+    <update id="updateStatus" >
+        update t_customer
+        set is_valid=#{isValid}
+        where id=#{id}
+    </update>
+    <update id="update" parameterType="Customer">
+        update t_customer
+        set password=#{password}
+        where id=#{id}
+    </update>
+</mapper>

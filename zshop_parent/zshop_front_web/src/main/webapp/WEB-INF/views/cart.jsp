@@ -93,7 +93,11 @@
             </tr>
             <%
                 double allprice=(double)0;
+                if (session.getAttribute("orders")==null){
+                    session.setAttribute("orders",new ArrayList<Order>());
+                }
                 ArrayList<Order> products=(ArrayList<Order>)session.getAttribute("orders");
+                out.println(products.size());
                 for (int i=0;i<products.size();i++){
              %>
               <tr>

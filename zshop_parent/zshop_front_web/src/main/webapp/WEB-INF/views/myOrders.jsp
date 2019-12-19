@@ -21,6 +21,19 @@
                 }
             )
         }
+        function addTellshow(name,number) {
+            var show="我在本网站购买了"+number+"个"+name;
+            $.post(
+                '${pageContext.request.contextPath}/front/tell/add',
+                {'info':show},
+                function (result) {
+                    if (result.status==1)
+                        location.href='${pageContext.request.contextPath}/front/tell/findAll?page=4';
+                    else
+                        alert(result.message);
+                }
+            )
+        }
     </script>
 </head>
 
@@ -70,7 +83,11 @@
             </tr>
             <tr>
                 <td colspan="5">
-                    <span class="pull-right"><button class="btn btn-danger" onclick="deleteOrder(${myorder.id})">删除订单</button></span>
+                    <span ></span>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-warning" onclick="addTellshow('${myorder.name}',${myorder.numbers})">炫耀一下</button>
+                        <button class="btn btn-danger" onclick="deleteOrder(${myorder.id})">删除订单</button>
+                    </span>
                     <span class="">总计:<span class="text-color">￥${myorder.prices}</span></span>
                 </td>
             </tr>

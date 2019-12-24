@@ -107,7 +107,7 @@
                                 <div class="panel-body">
                                     <div class="art-back clear-back">
                                         <div class="add-padding-bottom">
-                                            <img src="http://localhost:9001${product.image}" class="shopImg">
+                                            <img src="http://${pageContext.request.serverName}:9001${product.image}" class="shopImg">
                                         </div>
                                         <h4><a href="">${product.name}</a></h4>
                                         <div class="user clearfix pull-right">

@@ -63,7 +63,7 @@
                 </td>
             </tr>
             <tr>
-                <td><img src="http://localhost:9001${myorder.image}" alt=""></td>
+                <td><img src="http://${pageContext.request.serverName}:9001${myorder.image}" alt=""></td>
                 <td class="order-content">
                     <p>
                         ${myorder.name}

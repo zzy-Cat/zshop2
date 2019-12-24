@@ -103,7 +103,7 @@
               <tr>
                 <td><%=i+1%></td>
                 <td><%=products.get(i).getName()%></td>
-                <td> <img src="http://localhost:9001<%=products.get(i).getImage()%>" alt="" width="60" height="60"></td>
+                <td> <img src="http://${pageContext.request.serverName}:9001<%=products.get(i).getImage()%>" alt="" width="60" height="60"></td>
                 <td>
                     <input type="number" min="1" max="99" value="<%=products.get(i).getNumbers()%>" id="number<%=i%>" onchange="changePrice(<%=i%>,<%=products.get(i).getPrice()%>,this.value)"/>
                 </td>
